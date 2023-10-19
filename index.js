@@ -38,11 +38,6 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         })
-        // app.get('/Brands', async (req, res) => {
-        //     const cursor = AllCarBrandCollection.find();
-        //     const result = await cursor.toArray();
-        //     res.send(result);
-        // })
 
         app.get('/Brands/:id', async (req, res) => {
             const id = req.params.id;
@@ -97,7 +92,7 @@ async function run() {
             const brand = req.params.brand;
             const cursor = AllCarCollection.find({ brandName: brand });
             const result = await cursor.toArray();
-            console.log(result);
+            // console.log(result);
             res.send(result);
         });
 
@@ -105,14 +100,36 @@ async function run() {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
             const result = await AllCarCollection.findOne(query);
-            console.log(result);
+            // console.log(result);
             res.send(result);
         })
 
         app.post('/Cars', async (req, res) => {
             const newCar = req.body;
-            console.log(newCar);
+            // console.log(newCar);
             const result = await AllCarCollection.insertOne(newCar);
+            res.send(result);
+        })
+
+        app.put('/Cars/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const option = { upsert: true }
+            const updateBrand = req.body;
+            const Brand = {
+                $set: {
+                    image: updateBrand.image,
+                    name: updateBrand.name,
+                    brandName: updateBrand.brandName,
+                    type: updateBrand.type,
+                    price: updateBrand.price,
+                    rating: updateBrand.rating,
+                    description: updateBrand.description
+                }
+            }
+
+            const result = await AllCarCollection.updateOne(filter, Brand, option);
+            console.log(updateBrand);
             res.send(result);
         })
         // for all cars
