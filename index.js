@@ -38,6 +38,11 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         })
+        // app.get('/Brands', async (req, res) => {
+        //     const cursor = AllCarBrandCollection.find();
+        //     const result = await cursor.toArray();
+        //     res.send(result);
+        // })
 
         app.get('/Brands/:id', async (req, res) => {
             const id = req.params.id;
