@@ -110,12 +110,7 @@ async function run() {
             const result = await AllCarCollection.insertOne(newCar);
             res.send(result);
         })
-        // app.post('/Cars', async (req, res) => {
-        //     const newCar = req.body;
-        //     // console.log(newCar);
-        //     const result = await AllCarCollection.insertOne(newCar);
-        //     res.send(result);
-        // })
+
 
         app.put('/Cars/:id', async (req, res) => {
             const id = req.params.id;
