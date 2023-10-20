@@ -32,6 +32,7 @@ async function run() {
 
         const AllCarBrandCollection = client.db('BrandShopDB').collection('Brands');
         const AllCarCollection = client.db('BrandShopDB').collection('allCars');
+        const MyCartCollection = client.db('BrandShopDB').collection('mycart');
         // for all car brands
         app.get('/Brands', async (req, res) => {
             const cursor = AllCarBrandCollection.find();
@@ -134,8 +135,22 @@ async function run() {
             res.send(result);
         })
         // for all cars
+        // ***********************
+        // For my cart
 
+        app.get('/Cart', async (req, res) => {
+            const cursor = MyCartCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
 
+        app.post('/Cart', async (req, res) => {
+            const newCart = req.body;
+            console.log(newCart);
+            const result = await MyCartCollection.insertOne(newCart);
+            res.send(result);
+        })
+        // For my cart
 
 
         // Send a ping to confirm a successful connection
